@@ -65,12 +65,13 @@ public class Bird {
 
         velocity.y = 250;
         ROTATION=50;
-
-
-
     }
 
     public TextureRegion getBirdRegion() {
         return birdRegion;
+    }
+
+    public void dispose(){
+        bird.dispose();
     }
 }
