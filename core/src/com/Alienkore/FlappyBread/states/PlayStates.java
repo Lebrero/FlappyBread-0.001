@@ -1,7 +1,9 @@
 package com.Alienkore.FlappyBread.states;
 
 import com.Alienkore.FlappyBread.FlappyBread;
+import com.Alienkore.FlappyBread.sprites.Background;
 import com.Alienkore.FlappyBread.sprites.Bird;
+import com.Alienkore.FlappyBread.sprites.Tube;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -13,11 +15,14 @@ public class PlayStates extends State {
 
     private Bird bird;
     private Tube tube;
+    private Background bg;
+    
 
     public PlayStates(GameStateManager gsm) {
         super(gsm);
-        bird = new Bird(50, 100);
-        tube = new Tube(100);
+        this.bird = new Bird(50, 100);
+        this.tube = new Tube(100);
+        this.bg= new Background();
         cam.setToOrtho(false, FlappyBread.WIDTH / 2, FlappyBread.HEIGHT / 2);
     }
 
@@ -38,6 +43,7 @@ public class PlayStates extends State {
     public void render(SpriteBatch sb) {
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
+        sb.draw(bg.getBg(), cam.position.x-(cam.viewportWidth/2), 0);
         sb.draw(bird.getBirdRegion(), bird.getPosition().x, bird.getPosition().y, bird.getBird().getWidth() / 2, bird.getBird().getHeight() / 2, bird.getBird().getWidth(), bird.getBird().getHeight(), 1, 1, bird.getRotation().x);
         // sb.draw(bird.getBird(), bird.getPosition().x, bird.getPosition().y);
         sb.draw(tube.getTopTube(), tube.getPosTopTube().x, tube.getPosTopTube().y);
