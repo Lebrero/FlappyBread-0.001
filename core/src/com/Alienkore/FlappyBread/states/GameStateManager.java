@@ -19,20 +19,19 @@ public class GameStateManager {
         states.push(state);
     }
 
-    public void pop(State state) {
+    public void pop(State state){
         states.pop();
     }
-
-    public void set(State state) {
+    public void set(State state){
         states.pop();
         states.push(state);
     }
 
-    public void update(float dt) {
+    public void update(float dt){
         states.peek().update(dt);
     }
 
-    public void render(SpriteBatch sb) {
+    public void render(SpriteBatch sb){
         states.peek().render(sb);
     }
 

@@ -1,4 +1,4 @@
-package com.Alienkore.FlappyBread.sprites;
+package com.Alienkore.FlappyBread.states;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
@@ -41,11 +41,5 @@ public class Tube {
 
     public Vector2 getPosBottomTube() {
         return posBottomTube;
-    }
-
-
-    public void dispose(){
-        topTube.dispose();
-        bottomTube.dispose();
     }
 }
