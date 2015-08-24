@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector3;
  * Created by David on 23/08/2015.
  */
 public abstract class State {
-
+//Este State contiene varios elementos. Una camara, un mouse, 
     protected OrthographicCamera cam;
     protected Vector3 mouse;
     protected GameStateManager gsm;
