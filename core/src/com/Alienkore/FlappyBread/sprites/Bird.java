@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector3;
  */
 public class Bird {
     private static final int GRAVITY = -15;
+    private static final int MOVEMENT=100;
     private int ROTATION = 0;
     private float ROTACION_VEL = 150;
 
@@ -38,7 +39,7 @@ public class Bird {
         rotation.scl(dt);
         velocity.scl(dt);
 
-        position.add(0, velocity.y, 0);
+        position.add(MOVEMENT*dt, velocity.y, 0);
 
         rotation.scl(1/dt);
         velocity.scl(1 / dt);
@@ -63,7 +64,7 @@ public class Bird {
 
     public void jump() {
 
-        velocity.y = 250;
+        velocity.y = 350;
         ROTATION=50;
 
 
@@ -72,5 +73,9 @@ public class Bird {
 
     public TextureRegion getBirdRegion() {
         return birdRegion;
+    }
+    
+    public void dispose(){
+    	bird.dispose();
     }
 }

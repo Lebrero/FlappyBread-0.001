@@ -21,6 +21,9 @@ public class Background {
 		this.bg = bg;
 	}
 	
+	public void dispose(){
+		bg.dispose();
+	}
 	
 	
 	

@@ -8,24 +8,32 @@ import java.util.Random;
 /**
  * Created by David on 23/08/2015.
  */
-public class Tube {
+public class Tube{
+    public static final int TUBE_WIDTH = 52;
 
-    private static final int FLUCTUACION =130 ;
-    private static final int TUBEGAP = 120;
-    private static final int LOWEST_OPENING =120 ;
-    private Texture topTube,bottomTube;
-    private Vector2 posTopTube, posBottomTube;
+    private static final int FLUCTUATION = 130;
+    private static final int TUBE_GAP = 100;
+    private static final int LOWEST_OPENING = 120;
+    private Texture topTube, bottomTube;
+    private Vector2 posTopTube, posBotTube;
+
     private Random rand;
-    
-    
+
+
     public Tube(float x){
-        rand= new Random();
-        topTube= new Texture("toptube.png");
-        bottomTube= new Texture("bottomtube.png");
-        
-        posTopTube= new Vector2(x, rand.nextInt(FLUCTUACION+TUBEGAP+LOWEST_OPENING));
-        posBottomTube= new Vector2(x,posTopTube.y-TUBEGAP-bottomTube.getHeight());
+        topTube = new Texture("toptube.png");
+        bottomTube = new Texture("bottomtube.png");
+        rand = new Random();
+
+
+        posTopTube = new Vector2(x, rand.nextInt(FLUCTUATION) + TUBE_GAP + LOWEST_OPENING);
+        posBotTube = new Vector2(x, posTopTube.y - TUBE_GAP - bottomTube.getHeight());
+
+      
+
+
     }
+
 
     public Texture getBottomTube() {
         return bottomTube;
@@ -39,7 +47,20 @@ public class Tube {
         return posTopTube;
     }
 
-    public Vector2 getPosBottomTube() {
-        return posBottomTube;
+    public Vector2 getPosBotTube() {
+        return posBotTube;
+    }
+
+    public void reposition(float x){
+        posTopTube.set(x, rand.nextInt(FLUCTUATION) + TUBE_GAP + LOWEST_OPENING);
+        posBotTube.set(x, posTopTube.y - TUBE_GAP - bottomTube.getHeight());
+
+    }
+
+ 
+
+    public void dispose(){
+        topTube.dispose();
+        bottomTube.dispose();
     }
 }
