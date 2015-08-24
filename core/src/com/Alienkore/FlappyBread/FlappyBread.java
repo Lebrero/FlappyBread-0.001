@@ -2,13 +2,11 @@ package com.Alienkore.FlappyBread;
 
 import com.Alienkore.FlappyBread.states.GameStateManager;
 import com.Alienkore.FlappyBread.states.MenuState;
-import com.Alienkore.FlappyBread.states.PlayStates;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.sun.media.jfxmedia.events.PlayerStateEvent;
 
 public class FlappyBread extends ApplicationAdapter {
 
@@ -19,7 +17,6 @@ public class FlappyBread extends ApplicationAdapter {
 
 
     private GameStateManager gsm;
-    
     private SpriteBatch batch;
 
     Texture img;
@@ -30,7 +27,7 @@ public class FlappyBread extends ApplicationAdapter {
         gsm = new GameStateManager();
         Gdx.gl.glClearColor(0, 0, 0, 1);
 
-        gsm.push(new PlayStates(gsm));
+        gsm.push(new MenuState(gsm));
 
     }
 
