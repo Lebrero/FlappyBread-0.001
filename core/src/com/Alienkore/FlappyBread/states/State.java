@@ -8,22 +8,25 @@ import com.badlogic.gdx.math.Vector3;
  * Created by David on 23/08/2015.
  */
 public abstract class State {
-//Este State contiene varios elementos. Una camara, un mouse, 
-    protected OrthographicCamera cam;
-    protected Vector3 mouse;
-    protected GameStateManager gsm;
+	// Este State contiene varios elementos. Una camara, un mouse,
+	// Es una clase abstracta que contiene metodos. Las pantallas que van a
+	// extender de esta pantalla van a heredar los metodos y constructor.
 
-    protected State(GameStateManager gsm) {
-        this.gsm = gsm;
-        this.cam = new OrthographicCamera();
-        this.mouse = new Vector3();
-    }
+	protected OrthographicCamera cam;
+	protected Vector3 mouse;
+	protected GameStateManager gsm;
 
-    protected abstract void handleInput();
+	protected State(GameStateManager gsm) {
+		this.gsm = gsm;
+		this.cam = new OrthographicCamera();
+		this.mouse = new Vector3();
+	}
 
-    public abstract void update(float dt);
+	protected abstract void handleInput();
 
-    public abstract void render(SpriteBatch sb);
-    
-    public abstract void dispose();
+	public abstract void update(float dt);
+
+	public abstract void render(SpriteBatch sb);
+
+	public abstract void dispose();
 }

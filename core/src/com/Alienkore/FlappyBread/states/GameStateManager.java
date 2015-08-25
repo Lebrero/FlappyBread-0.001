@@ -8,10 +8,12 @@ import java.util.Stack;
  * Created by David on 23/08/2015.
  */
 public class GameStateManager {
-	// GameStateManager es una pila de States, tiene metodos para meter states,
+	// GameStateManager es una pila de States, tiene metodos para meter y,
 	// recuperar states y demás. Tiene un metodo render y update que accede al
 	// State superior y lo renderiza y actualiza. Estos dos metodos son a los
-	// que accede FlappyBread.java para mostrar toda la informacion
+	// que accede FlappyBread.java para mostrar toda la informacion:
+	//Cuando metemos un state también metemos a su hijo (en este caso las pantallas)
+	
 	private Stack<State> states;
 
 	public GameStateManager() {

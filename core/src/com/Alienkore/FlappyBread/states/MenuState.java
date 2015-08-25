@@ -9,15 +9,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  * Created by David on 23/08/2015.
  */
 
-//MenuState y PlayState extiende de State
+// MenuState y PlayState extiende de State
 public class MenuState extends State {
 
 	private Texture background;
 	private Texture playBtn;
 
 	public MenuState(GameStateManager gsm) {
-		// Tiene que llamar al constructor de su Padre para poder construir los
-		// objetos que tiene el padre en el constructor
+		// Nos obliga a llamar a super(gsm)
 		super(gsm);
 		background = new Texture("bg.png");
 		playBtn = new Texture("playBtn.png");
@@ -27,7 +26,11 @@ public class MenuState extends State {
 	protected void handleInput() {
 
 		if (Gdx.input.justTouched()) {
+			// llamamaos al metodo set de gsm y le pasamos un State (PlayStates)
+			// por su puesto le pasamos gsm
 			gsm.set(new PlayStates(gsm));
+			// En cuanto damos al boton llamamos a dispose() para limpiar la
+			// pantalla
 			dispose();
 		}
 	}
