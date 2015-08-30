@@ -27,7 +27,7 @@ public class GameStateManager {
 
 	// Metodo que maneja la pila de states. Borra el ultimo elemento de la pila
 	public void pop(State state) {
-		states.pop();
+		states.pop().dispose();
 	}
 
 	// Metodo que maneja la pila de states. Borra el ultimo elemento de la pila

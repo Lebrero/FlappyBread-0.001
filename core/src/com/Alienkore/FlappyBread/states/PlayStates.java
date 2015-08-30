@@ -3,9 +3,11 @@ package com.Alienkore.FlappyBread.states;
 import com.Alienkore.FlappyBread.FlappyBread;
 import com.Alienkore.FlappyBread.sprites.Background;
 import com.Alienkore.FlappyBread.sprites.Bird;
+import com.Alienkore.FlappyBread.sprites.Ground;
 import com.Alienkore.FlappyBread.sprites.Tube;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
 /**
@@ -21,11 +23,16 @@ public class PlayStates extends State {
 
 	private static final int TUBE_SPACING = 125;
 	private static final int TUBE_COUNT = 4;
+	private static final int GROUND_LIMIT = -50;
+
+	private Vector2 groundPos1, groundPos2;
 
 	// Creamos un pajaro
 	private Bird bird;
 	// Creamos un fondo
 	private Background bg;
+	// Creamos un suelo
+	private Ground ground;
 	// Creamos un array de Tubes
 	private Array<Tube> tubes;
 
@@ -35,7 +42,12 @@ public class PlayStates extends State {
 		// inicializamos
 		this.bird = new Bird(50, 200);
 		this.bg = new Background();
+		this.ground = new Ground();
 		this.tubes = new Array<Tube>();
+
+		groundPos1 = new Vector2(cam.position.x - cam.viewportWidth / 2, GROUND_LIMIT);
+		groundPos2 = new Vector2((cam.position.x - cam.viewportWidth / 2) + ground.getGround().getWidth(),
+				GROUND_LIMIT);
 
 		cam.setToOrtho(false, FlappyBread.WIDTH / 2, FlappyBread.HEIGHT / 2);
 
@@ -60,7 +72,7 @@ public class PlayStates extends State {
 
 		// Metodo actualizar
 		handleInput();
-
+		updateGround();
 		// mandamos delta a bird
 		bird.update(dt);
 
@@ -76,8 +88,27 @@ public class PlayStates extends State {
 			if (cam.position.x - (cam.viewportWidth / 2) > tube.getPosTopTube().x + tube.getTopTube().getWidth()) {
 				tube.reposition(tube.getPosTopTube().x + ((Tube.TUBE_WIDTH + TUBE_SPACING) * TUBE_COUNT));
 			}
+
+			if (tube.collide(bird.getBounds())) {
+				gsm.set(new PlayStates(gsm));
+			}
+
+			if (bird.getPosition().y <= ground.getGround().getHeight() + GROUND_LIMIT) {
+				gsm.set(new PlayStates(gsm));
+			}
 		}
 		cam.update();
+
+	}
+
+	public void updateGround() {
+		if (cam.position.x - (cam.viewportWidth / 2) > groundPos1.x + ground.getGround().getWidth())
+
+			groundPos1.add(ground.getGround().getWidth() * 2, 0);
+
+		if (cam.position.x - (cam.viewportWidth / 2) > groundPos2.x + ground.getGround().getWidth())
+
+			groundPos2.add(ground.getGround().getWidth() * 2, 0);
 	}
 
 	@Override
@@ -89,10 +120,10 @@ public class PlayStates extends State {
 		// Estamos dibujando el fondo el la misma posicion que la camara (el
 		// efecto es que la sigue)
 		sb.draw(bg.getBg(), cam.position.x - (cam.viewportWidth / 2), 0);
-		
-		//Hemos utilizado este metodo para poder controlar la rotacion
-		sb.draw(bird.getBirdRegion(), bird.getPosition().x, bird.getPosition().y, bird.getBird().getWidth() / 2,
-				bird.getBird().getHeight() / 2, bird.getBird().getWidth(), bird.getBird().getHeight(), 1, 1,
+
+		// Hemos utilizado este metodo para poder controlar la rotacion
+		sb.draw(bird.getBirdAnimation(), bird.getPosition().x, bird.getPosition().y, bird.getBirdAnimation().getRegionWidth() / 2,
+				bird.getBirdAnimation().getRegionHeight() / 2, bird.getBirdAnimation().getRegionWidth(), bird.getBirdAnimation().getRegionHeight(), 1, 1,
 				bird.getRotation().x);
 
 		for (Tube tube : tubes) {
@@ -100,6 +131,10 @@ public class PlayStates extends State {
 			sb.draw(tube.getBottomTube(), tube.getPosBotTube().x, tube.getPosBotTube().y);
 		}
 
+		sb.draw(ground.getGround(), groundPos1.x, groundPos1.y, ground.getGround().getWidth(),
+				ground.getGround().getHeight());
+		sb.draw(ground.getGround(), groundPos2.x, groundPos2.y, ground.getGround().getWidth(),
+				ground.getGround().getHeight());
 		sb.end();
 	}
 
@@ -107,7 +142,7 @@ public class PlayStates extends State {
 	public void dispose() {
 		bg.dispose();
 		bird.dispose();
-
+		ground.dispose();
 		for (Tube tube : tubes)
 			tube.dispose();
 	}

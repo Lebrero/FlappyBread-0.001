@@ -31,7 +31,6 @@ public class MenuState extends State {
 			gsm.set(new PlayStates(gsm));
 			// En cuanto damos al boton llamamos a dispose() para limpiar la
 			// pantalla
-			dispose();
 		}
 	}
 
